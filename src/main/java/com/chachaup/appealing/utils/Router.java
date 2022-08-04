@@ -40,35 +40,38 @@ public class Router {
         });
 
         patch("/api/v1/books/:id", "application/json", (req, res) -> {
-            Book book = gson.fromJson(req.body(), Book.class);
             IBook bookDao = new BookDao();
+            Book book = bookDao.getBook(connection, Integer.parseInt(req.params(":id")));
             bookDao.updateBook(connection, book);
-            res.status(204);
+            res.status(200);
             return gson.toJson(book);
         });
 
         delete("/api/v1/books/:id", "application/json", (req, res) -> {
             IBook bookDao = new BookDao();
             bookDao.deleteBook(connection, Integer.parseInt(req.params(":id")));
-            res.status(204);
-            return "Book deleted successfully";
+            res.status(200);
+            return gson.toJson("Book deleted successfully");
         });
         //get books by author
-        Spark.get("api/v1/books/:author", "application/json", (req, res) -> {
+        Spark.get("api/v1/books/authors/:author", "application/json", (req, res) -> {
             IBook bookDao = new BookDao();
             String author = req.queryParams(":author");
+            res.status(200);
             return gson.toJson(bookDao.getBooksByAuthor(connection, author));
         });
         //get books by price
-        Spark.get("api/v1/books/:price", "application/json", (req, res) -> {
+        Spark.get("api/v1/books/prices/:price", "application/json", (req, res) -> {
             IBook bookDao = new BookDao();
             int price = Integer.parseInt(req.params(":price"));
+            res.status(200);
             return gson.toJson(bookDao.getBooksByPrice(connection, price));
         });
         //get books by name
-        Spark.get("api/v1/books/:name", "application/json", (req, res) -> {
+        Spark.get("api/v1/books/names/:name", "application/json", (req, res) -> {
             IBook bookDao = new BookDao();
             String name = req.queryParams(":name");
+            res.status(200);
             return gson.toJson(bookDao.getBooksByName(connection, name));
         });
 
