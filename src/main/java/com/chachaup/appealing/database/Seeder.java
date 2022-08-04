@@ -7,11 +7,11 @@ public class Seeder {
         try{
             String books = "CREATE TABLE IF NOT EXISTS books (\n" +
                     "  id SERIAL PRIMARY KEY,\n" +
-                    "  name VARCHAR(255) NOT NULL,\n" +
+                    "  bookName VARCHAR(255) NOT NULL,\n" +
                     "  author VARCHAR(255) NOT NULL,\n" +
                     "  description VARCHAR(255) NOT NULL,\n" +
                     "  price INTEGER NOT NULL,\n" +
-                    "  img bytea NOT NULL\n" +
+                    "  img bytea\n" +
                     ");";
             connection.createQuery(books).executeUpdate();
         }

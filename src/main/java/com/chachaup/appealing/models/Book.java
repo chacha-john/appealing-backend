@@ -5,17 +5,16 @@ import java.util.Objects;
 public class Book {
     private int id;
     private String bookName;
-    private String bookAuthor;
-    private String bookDescription;
-    private int bookPrice;
-    private byte bookImg;
+    private String author;
+    private String description;
+    private int price;
+    private byte img;
 
-    public Book(String bookName, String bookAuthor, String bookDescription, int bookPrice, byte bookImg) {
+    public Book(String bookName, String author, String description, int price) {
         this.bookName = bookName;
-        this.bookAuthor = bookAuthor;
-        this.bookDescription = bookDescription;
-        this.bookPrice = bookPrice;
-        this.bookImg = bookImg;
+        this.author = author;
+        this.description = description;
+        this.price = price;
     }
 
     public int getId() {
@@ -34,36 +33,45 @@ public class Book {
         this.bookName = bookName;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getBookDescription() {
-        return bookDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBookDescription(String bookDescription) {
-        this.bookDescription = bookDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public int getBookPrice() {
-        return bookPrice;
+    public int getPrice() {
+        return price;
     }
 
-    public void setBookPrice(int bookPrice) {
-        this.bookPrice = bookPrice;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
-    public byte getBookImg() {
-        return bookImg;
+    public byte getImg() {
+        return img;
     }
 
-    public void setBookImg(byte bookImg) {
-        this.bookImg = bookImg;
+    public void setImg(byte img) {
+        this.img = img;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookName='" + bookName + '\'' +
+                ", author='" + author + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 
     @Override
@@ -71,22 +79,11 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return id == book.id && bookPrice == book.bookPrice && bookImg == book.bookImg && bookName.equals(book.bookName) && bookAuthor.equals(book.bookAuthor) && bookDescription.equals(book.bookDescription);
+        return id == book.id && price == book.price && img == book.img && bookName.equals(book.bookName) && author.equals(book.author) && description.equals(book.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, bookName, bookAuthor, bookDescription, bookPrice, bookImg);
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                ", bookName='" + bookName + '\'' +
-                ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookDescription='" + bookDescription + '\'' +
-                ", bookPrice=" + bookPrice +
-                ", bookImg=" + bookImg +
-                '}';
+        return Objects.hash(id, bookName, author, description, price, img);
     }
 }

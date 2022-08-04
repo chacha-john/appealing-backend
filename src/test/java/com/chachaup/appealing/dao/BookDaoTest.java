@@ -31,56 +31,75 @@ class BookDaoTest {
 
     @Test
     void createBook() {
-        Book book = new Book("Book 1", "Author 1", "Description 1", 1, https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png);
-        IBook bookDao = new BookDao();
-        bookDao.createBook(con,book);
-        assertEquals(1, bookDao.getAllBooks(con).size());
+        Book book = newBook();
+        assertEquals(1, book.getId());
     }
 
     @Test
     void getBook() {
         IBook bookDao = new BookDao();
-        Book book = bookDao.getBook(con, 1);
-        assertEquals("Book 1", book.getBookName());
+        Book book = newBook();
+        assertEquals("the way of the superior man", book.getBookName());
     }
 
     @Test
     void getAllBooks() {
         IBook bookDao = new BookDao();
+        Book book = newBook();
+        Book book1 = newBook();
+        Book book2 = newBook();
         assertEquals(3, bookDao.getAllBooks(con).size());
     }
 
     @Test
     void getBooksByAuthor() {
         IBook bookDao = new BookDao();
-        assertEquals(2, bookDao.getBooksByAuthor(con, "Author 1").size());
+        Book book = newBook();
+        Book book2 = newBook();
+        assertEquals(2, bookDao.getBooksByAuthor(con, "David Deida").size());
     }
 
     @Test
     void getBooksByName() {
         IBook bookDao = new BookDao();
-        assertEquals(2, bookDao.getBooksByName(con, "Book 1").size());
+        Book book = newBook();
+        Book book2 = newBook();
+        assertEquals(2, bookDao.getBooksByName(con, "the way of the superior man").size());
     }
 
     @Test
     void getBooksByPrice() {
         IBook bookDao = new BookDao();
-        assertEquals(2, bookDao.getBooksByPrice(con, 1).size());
+        Book book = newBook();
+        Book book1 = newBook();
+        assertEquals(2, bookDao.getBooksByPrice(con, 2000).size());
     }
 
     @Test
     void updateBook() {
         IBook bookDao = new BookDao();
+        newBook();
         Book book = bookDao.getBook(con, 1);
-        book.setBookName("Book 2");
+        book.setBookName("superior");
         bookDao.updateBook(con, book);
-        assertEquals("Book 2", bookDao.getBook(con, 1).getBookName());
+        assertEquals("superior", bookDao.getBook(con, 1).getBookName());
     }
 
     @Test
     void deleteBook() {
         IBook bookDao = new BookDao();
+        newBook();
+        newBook();
+        newBook();
         bookDao.deleteBook(con, 1);
         assertEquals(2, bookDao.getAllBooks(con).size());
+    }
+
+    //helper method to create a book
+    private Book newBook() {
+        Book book = new Book("the way of the superior man", "David Deida", "spiritual guide to mastering challenges of women, work, and sexual desire", 2000);
+        IBook bookDao = new BookDao();
+        bookDao.createBook(con, book);
+        return book;
     }
 }

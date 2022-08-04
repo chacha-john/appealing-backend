@@ -11,7 +11,7 @@ public class BookDao implements IBook {
     @Override
     public void createBook(Connection connection, Book book) {
         try {
-            String query = "INSERT INTO books (bookName, bookAuthor, bookDescription, bookPrice, bookImg) VALUES (:bookName, :bookAuthor, :bookDescription, :bookPrice, :bookImg)";
+            String query = "INSERT INTO books (bookName, author, description, price) VALUES (:bookName, :author, :description, :price)";
             int id = (int) connection.createQuery(query, true)
                     .bind(book)
                     .executeUpdate()
@@ -49,7 +49,7 @@ public class BookDao implements IBook {
     @Override
     public List<Book> getBooksByAuthor(Connection connection, String author) {
         try {
-            String query = "SELECT * FROM books WHERE bookAuthor = :author";
+            String query = "SELECT * FROM books WHERE author = :author";
             return connection.createQuery(query)
                     .addParameter("author", author)
                     .executeAndFetch(Book.class);
@@ -59,11 +59,11 @@ public class BookDao implements IBook {
     }
 
     @Override
-    public List<Book> getBooksByName(Connection connection, String name) {
+    public List<Book> getBooksByName(Connection connection, String bookName) {
         try {
-            String query = "SELECT * FROM books WHERE bookName = :name";
+            String query = "SELECT * FROM books WHERE bookName = :bookName";
             return connection.createQuery(query)
-                    .addParameter("name", name)
+                    .addParameter("bookName", bookName)
                     .executeAndFetch(Book.class);
         } catch (Exception ex) {
             throw new RuntimeException("Error getting books by name: " + ex.getMessage());
@@ -73,7 +73,7 @@ public class BookDao implements IBook {
     @Override
     public List<Book> getBooksByPrice(Connection connection, int price) {
         try {
-            String query = "SELECT * FROM books WHERE bookPrice = :price";
+            String query = "SELECT * FROM books WHERE price = :price";
             return connection.createQuery(query)
                     .addParameter("price", price)
                     .executeAndFetch(Book.class);
@@ -85,7 +85,7 @@ public class BookDao implements IBook {
     @Override
     public void updateBook(Connection connection, Book book) {
         try {
-            String query = "UPDATE books SET bookName = :bookName, bookAuthor = :bookAuthor, bookDescription = :bookDescription, bookPrice = :bookPrice, bookImg = :bookImg WHERE id = :id";
+            String query = "UPDATE books SET bookName = :bookName, author = :author, description = :description, price = :price WHERE id = :id";
             connection.createQuery(query)
                     .bind(book)
                     .executeUpdate();
