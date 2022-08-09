@@ -80,8 +80,8 @@ class BookDaoTest {
         IBook bookDao = new BookDao();
         newBook();
         Book book = bookDao.getBook(con, 1);
-        book.setBookName("superior");
-        bookDao.updateBook(con, book);
+        Book book1 = new Book("superior", "David Deida", "dodgy", 2000);
+        bookDao.updateBook(con, book.getId(), book1);
         assertEquals("superior", bookDao.getBook(con, 1).getBookName());
     }
 

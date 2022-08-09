@@ -83,11 +83,13 @@ public class BookDao implements IBook {
     }
 
     @Override
-    public void updateBook(Connection connection, Book book) {
+    public void updateBook(Connection connection, int id, Book book) {
         try {
             String query = "UPDATE books SET bookName = :bookName, author = :author, description = :description, price = :price WHERE id = :id";
             connection.createQuery(query)
+                    .addParameter("id", id)
                     .bind(book)
+                    .throwOnMappingFailure(true)
                     .executeUpdate();
         } catch (Exception ex) {
             throw new RuntimeException("Error updating book: " + ex.getMessage());

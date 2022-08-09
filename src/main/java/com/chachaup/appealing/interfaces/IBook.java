@@ -20,7 +20,7 @@ public interface IBook {
 
 
     // Update
-    void updateBook(Connection connection, Book book);
+    void updateBook(Connection connection, int id, Book book);
 
     // Delete
     void deleteBook(Connection connection, int id);

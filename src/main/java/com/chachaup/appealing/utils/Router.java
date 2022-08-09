@@ -42,9 +42,10 @@ public class Router {
         patch("/api/v1/books/:id", "application/json", (req, res) -> {
             IBook bookDao = new BookDao();
             Book book = bookDao.getBook(connection, Integer.parseInt(req.params(":id")));
-            bookDao.updateBook(connection, book);
+            Book book1 = gson.fromJson(req.body(), Book.class);
+            bookDao.updateBook(connection, book.getId(), book1);
             res.status(200);
-            return gson.toJson(book);
+            return gson.toJson(book1);
         });
 
         delete("/api/v1/books/:id", "application/json", (req, res) -> {
